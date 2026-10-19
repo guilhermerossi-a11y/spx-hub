@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "name": "SPX Hub",
+  "updatedAt": "2026-10-19",
+  "launcher": {
+    "url": "https://SEUUSUARIO.github.io/spx-hub/launcher/index.html"
+  },
+  "modules": [
+    {
+      "id": "painel-carretas",
+      "name": "Painel de Carretas",
+      "description": "Painel em tempo real de LH em operação (carretas) com dados do SPX.",
+      "version": "1.0.0",
+      "enabled": true,
+      "type": "web_app",
+      "entry": "https://SEUUSUARIO.github.io/spx-hub/modules/painel-carretas/index.html",
+      "permissions": [],
+      "hostPermissions": [
+        "https://spx.shopee.com.br/*"
+      ],
+      "capabilities": [
+        "network.fetchBatch",
+        "network.connectionStatus",
+        "storage.get",
+        "storage.set"
+      ],
+      "authProfiles": [
+        {
+          "id": "spx",
+          "requestPatterns": [
+            "https://spx.shopee.com.br/api/*"
+          ],
+          "tabPatterns": [
+            "https://spx.shopee.com.br/*"
+          ],
+          "captureUrlPatterns": [
+            "https://spx.shopee.com.br/api/*"
+          ],
+          "captureHeaders": []
+        }
+      ]
+    }
+  ]
+}

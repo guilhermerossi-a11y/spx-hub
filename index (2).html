@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Operacional - SPX</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>PAINEL OPERACIONAL - SPX</h1>
+      <p>Acompanhamento em tempo real da operação de descarregamento de carretas</p>
+    </div>
+    <div class="top-right">
+      <span id="conn" class="conn">Verificando conexão…</span>
+      <span id="clock"></span>
+      <button class="ghost" id="btnConfig" type="button">Configurar</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="cards">
+      <article class="card"><div class="ico">🚚</div><div><span class="lbl">Total de LH</span><strong id="kTotal">0</strong><small>Carretas em operação</small></div></article>
+      <article class="card"><div class="ico">📦</div><div><span class="lbl">Pacotes</span><strong id="kPkgs">0</strong><small>Total de pacotes na operação</small></div></article>
+      <article class="card"><div class="ico">✅</div><div><span class="lbl">LH descarregadas</span><strong id="kDone">0</strong><small>Carretas finalizadas</small></div></article>
+      <article class="card"><div class="ico">⏱️</div><div><span class="lbl">Em fila</span><strong id="kQueue">0</strong><small>Carretas aguardando descarregamento</small></div></article>
+    </section>
+
+    <section class="filters">
+      <label>Data<input type="date" id="fDate"></label>
+      <label>Status<select id="fStatus"><option value="">Todos</option></select></label>
+      <label>Origem<input type="text" id="fOrigin" placeholder="Digite a origem"></label>
+      <label>Pesquisar<input type="text" id="fSearch" placeholder="LH, motorista ou placa"></label>
+      <button id="btnRefresh" type="button">Atualizar</button>
+    </section>
+
+    <section class="panel">
+      <h2>🚛 LH em operação <small id="updated"></small></h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>LH</th><th>Motorista</th><th>Placa</th><th>Pacotes</th><th>Qtd. de T.O.</th><th>Origem</th><th>Status</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <div class="pager">
+        <button id="prev" type="button" aria-label="Página anterior">←</button>
+        <span id="pageInfo">Página 1 de 1</span>
+        <button id="next" type="button" aria-label="Próxima página">→</button>
+      </div>
+    </section>
+    <p class="error hidden" id="error"></p>
+  </main>
+
+  <dialog id="dlg">
+    <form method="dialog" id="cfgForm">
+      <h3>Configurar origem dos dados</h3>
+      <p class="hint">Na aba do SPX (Viagens de Carga Direta), abra o DevTools &gt; Network, clique em <b>Pesquisar</b> e copie a URL da requisição que lista as viagens. Use <code>{pageno}</code>, <code>{count}</code>, <code>{from}</code> e <code>{to}</code> como variáveis.</p>
+      <label>URL da API<input id="cUrl" type="url" spellcheck="false"></label>
+      <label>Método<select id="cMethod"><option>GET</option><option>POST</option></select></label>
+      <label>Body JSON (somente POST)<textarea id="cBody" rows="5" spellcheck="false"></textarea></label>
+      <label>Filtro de veículo (texto contido no tipo)<input id="cVehicle" placeholder="CARRETA"></label>
+      <div class="dlg-actions">
+        <button type="button" class="ghost" id="cRaw">Ver JSON bruto</button>
+        <button type="button" class="ghost" id="cCancel">Cancelar</button>
+        <button type="submit" id="cSave">Salvar</button>
+      </div>
+      <pre id="raw" class="hidden"></pre>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
